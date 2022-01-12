@@ -1,10 +1,10 @@
 parameters:
     leanmapper:
-        host: innodb.endora.cz
-        username: 'pesa06'
-        password: 'Terezkap1'
+        host: inlocal
+        username: inlocal
+        password: inlocal
         driver: mysqli
-        database: tdleaderboards
+        database: inlocal
     commands:
         - App\Service\Console\CreateUserCommand
     bankNumber: inlocal
