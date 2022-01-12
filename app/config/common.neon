@@ -1,0 +1,46 @@
+parameters:
+    leanmapper:
+        host: innodb.endora.cz
+        username: 'pesa06'
+        password: 'Terezkap1'
+        driver: mysqli
+        database: tdleaderboards
+    commands:
+        - App\Service\Console\CreateUserCommand
+    bankNumber: inlocal
+    bankAccountNumber: inlocal
+
+
+application:
+    errorPresenter: Error
+    mapping:
+        Api: App\Presenters\Api\*Presenter
+
+
+session:
+	expiration: 14 days
+
+
+di:
+    export:
+        parameters: no
+        tags: no
+
+services:
+    router: @App\Router\RouterFactory::createRouter
+    - App\Router\RouterFactory
+
+    db:
+        factory: LeanMapper\Connection(%leanmapper%)
+        setup:
+            - @db.panel::register(@db)
+
+    db.panel:
+        class: Dibi\Bridges\Tracy\Panel
+
+
+    - Etyka\Mapper\Mapper
+    - LeanMapper\DefaultEntityFactory
+    - Latte\Engine
+    - App\Domain\Repository\LeaderboardRepository
+    - App\Transformer\LeaderboardTransformer
